@@ -30,3 +30,33 @@ a.active{
 .content{
   padding: 20px;
 }
+
+
+
+
+#items{
+  border: 1px #ddd solid;
+  margin: auto;
+  padding: 10px;
+  width: 250px;
+}
+
+#items .item{
+  background: #FAFAFA;
+  height: 25px;
+  line-height: 25px;
+  margin: 4px 5px;
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#items .item.done{
+  color: #555;
+  text-decoration: line-through;
+}
+
+#items #add_item{
+  margin-top: 20px;
+  text-align: center;
+}
