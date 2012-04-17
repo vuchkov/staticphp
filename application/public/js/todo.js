@@ -15,24 +15,32 @@ $('#items')
     $(this).data('old_title', title);
   })
   .on('mouseleave', '.item', function(){
-    var span = $(this).find('span');
-    span.html(span.find('input:first').val().replace('&quot;', '"'));
-    
-    if (span.html() == $(this).data('old_title'))
+    var _this = $(this);
+    var span = _this.find('span');
+
+    // Check for input
+    if (span.find('input:first').length == 0)
     {
       return;
     }
-    
-    $(this).css({ 'opacity': 0.5 });
+    span.html(span.find('input:first').val().replace('&quot;', '"'));
 
-    $.post(BASE_URI + 'home/_json/save', {'id' : $(this).data('id'), 'title' : span.html()}, function(data){
+    // Check if text has been changed
+    if (span.html() == _this.data('old_title'))
+    {
+      return;
+    }
+
+    _this.css({ 'opacity': 0.5 });
+
+    $.post(BASE_URI + 'home/_json/save', {'id' : _this.data('id'), 'title' : span.html()}, function(data){
       if (data.title)
       {
         span.html(data.title);
       }
     }, 'json')
     .complete(function(){
-      $(this).css({ 'opacity': 1 });
+      _this.css({ 'opacity': 1 });
     });
 
   });
@@ -49,7 +57,7 @@ $('#items')
     $.post(BASE_URI + 'home/_json/done', {'id' : item.data('id')}, function(data){
       item.fadeOut(200, function(){
         $('#add_item').after(item);
-  
+
         item.css({ 'opacity': 1 })
           .addClass('done')
           .find('input:first')
@@ -82,7 +90,7 @@ $('#add_item_submit').on('click', function(){
   $.post(BASE_URI + 'home/_json/add', {'title' : $('#add_item_input').val()}, function(data){
     if (data && data.title)
     {
-      $('#add_item').before('<div class="item" data-id="'+ data.id +'"><input type="checkbox" class="checkbox" /> <span>'+ data.title +'</span></div>');
+      $('#items').append('<div class="item" data-id="'+ data.id +'"><input type="checkbox" class="checkbox" /> <span>'+ data.title +'</span></div>');
       $('#add_item_input').val('');
     }
   }, 'json')

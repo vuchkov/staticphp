@@ -4,10 +4,12 @@
 <div class="content">
 
 
-  <div id="items">
-    <?php foreach ($data['items'] as $key => $item): ?>
-      <div class="item" data-id="<?php echo $key; ?>"><input type="checkbox" class="checkbox" /> <span><?php echo $item['title']; ?></span></div>
-    <?php endforeach; ?>
+  <div class="items">
+    <div id="items">
+      <?php foreach ($data['items'] as $key => $item): ?>
+        <div class="item" data-id="<?php echo $key; ?>"><input type="checkbox" class="checkbox" /> <span><?php echo $item['title']; ?></span></div>
+      <?php endforeach; ?>
+    </div>
     
     <div id="add_item">
       <input type="text" id="add_item_input" /> <input type="button" id="add_item_submit" value="Add" />

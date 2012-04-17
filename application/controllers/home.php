@@ -59,7 +59,9 @@ class home
 
         $_SESSION['items'][]['title'] = $_POST['title'];
         $json_data['title'] = end($_SESSION['items'])['title'];
-        $json_data['id'] = count($_SESSION['items']) - 1;
+        
+        $keys = array_keys($_SESSION['items']);
+        $json_data['id'] = end($keys);
       break;
 
       case 'save':
