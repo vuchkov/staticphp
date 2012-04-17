@@ -20,7 +20,12 @@
     <?php endforeach; ?>
   </div>
   
-  <p>* Demo limit: 400 items per session</p>
+  <br />
+  <p>
+    * This thing currently works only per session and is saved in memcached - not to be used in production :)<br />
+    * Demo limit: 400 items per session<br />
+    * View source on the <a href="https://github.com/gintsmurans/staticphp/tree/example">GitHub</a>
+  </p>
 
 
 
