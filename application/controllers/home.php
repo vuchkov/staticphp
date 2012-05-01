@@ -26,7 +26,7 @@ class home
     }
     
     // Do something heavy and add timer mark
-    \load::mark_timer('Before views');
+    \load::mark_time('Before views');
 
     // Load view
     // Pass array (key => value) as second parameter, to get variables available in your view

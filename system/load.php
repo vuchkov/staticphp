@@ -4,7 +4,8 @@ class load
 {
   public static $config = array();
 
-  private static $custom_timers = array();
+  private static $started_timers = array();
+  private static $finished_timers = array();
 
 
   /*
@@ -83,28 +84,28 @@ class load
   */
 
   # Load config files
-  public static function config($files)
+  public static function config($files, $project = NULL)
   {
     $config =& self::$config;
     foreach ((array) $files as $name)
     {
-      include APP_PATH .'config/'. $name .'.php';
+      include (empty($project) ? APP_PATH : BASE_PATH . $project . '/') . 'config/'. $name .'.php';
     }
   }
 
 
   # Load models
-  public static function model($files)
+  public static function model($files, $project = NULL)
   {
     foreach ((array) $files as $name)
     {
-      include APP_PATH .'models/'. $name .'.php';
+      include (empty($project) ? APP_PATH : BASE_PATH . $project . '/') . 'models/'. $name .'.php';
     }
   }
 
 
   # Load views
-  public static function view($files, &$data = array(), $return = FALSE)
+  public static function view($files, &$data = array(), $return = FALSE, $project = NULL)
   {
     // Check for global template variables
     if (!empty(self::$config['view_data']))
@@ -121,7 +122,7 @@ class load
     // Include view files
     foreach ((array) $files as $file)
     {
-      include APP_PATH . 'views/' . $file . '.php';
+      include (empty($project) ? APP_PATH : BASE_PATH . $project . '/') . 'views/' . $file . '.php';
     }
 
     // Return it
@@ -135,11 +136,11 @@ class load
 
 
   # Helpers
-  public static function helper($files)
+  public static function helper($files, $project = NULL)
   {
     foreach ((array) $files as $name)
     {
-      include APP_PATH .'helpers/'. $name .'.php';
+      include (empty($project) ? APP_PATH : BASE_PATH . $project . '/') . 'helpers/'. $name .'.php';
     }
   }
 
@@ -151,29 +152,38 @@ class load
   |--------------------------------------------------------------------------
   */
 
-  public static function mark_timer($name)
+  public static function init_timer()
   {
-    global $microtime;
-    self::$custom_timers[$name] = round(microtime(true) - $microtime, 5);
+    self::$started_timers[] = microtime(true);
   }
 
+  public static function stop_timer($name)
+  {
+    self::$finished_timers[$name] = round(microtime(true) - array_shift(self::$started_timers), 5);
+  }
+
+  public static function mark_time($name)
+  {
+    global $microtime;
+    self::$finished_timers['*' . $name] = round(microtime(true) - $microtime, 5);
+  }
 
   public static function execution_time()
   {
     global $microtime;
     $output = 'Total execution time: ' . round(microtime(true) - $microtime, 5) . " seconds;\n";
     $output .= 'Memory used: ' . round(memory_get_usage() / 1024 / 1024, 4) . " MB;\n";
-    
-    if (!empty(self::$custom_timers))
+
+    if (!empty(self::$finished_timers))
     {
-      foreach (self::$custom_timers as $key => $value)
+      foreach (self::$finished_timers as $key => $value)
       {
         $output .= "\n{$key}: {$value} seconds;";
       }
     }
 
     return $output;
-  }  
+  }
 }
 
 
