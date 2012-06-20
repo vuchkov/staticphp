@@ -1,4 +1,4 @@
-<h1>This is and example todo project built on <a href="http://github.com/gintsmurans/staticphpc" target="_blank">StaticPHP framework</a></h1>
+<h1>This is an example todo project made using <a href="http://github.com/gintsmurans/staticphpc" target="_blank">StaticPHP</a> php framework</h1>
 
 
 <div class="content">
@@ -22,7 +22,7 @@
   
   <br />
   <p>
-    * This thing currently works only per session and is saved in memcached - not to be used in production :)<br />
+    * It currently works only per session and will save items in memcached - not to be used for production :)<br />
     * Demo limit: 400 items per session<br />
     * View source on the <a href="https://github.com/gintsmurans/staticphp/tree/example">GitHub</a>
   </p>
