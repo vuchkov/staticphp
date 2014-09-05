@@ -156,6 +156,7 @@ class router
     $uri = preg_replace('/\?.*/', '', $uri);
 
     // Check config routing array
+    $uri_tmp = $uri;
     foreach(\load::$config['routing'] as $key => &$item)
     {
       if (!empty($key) && !empty($item))
@@ -165,16 +166,18 @@ class router
         if ($tmp !== $uri)
         {
           self::$segments_requested = explode('/', $uri);
-          $uri = $tmp;
+          $uri_tmp = $tmp;
         }
       }
     }
+    $uri = $uri_tmp;
 
     // Set segments_full_url
     self::$segments_full_url = $uri . (empty(\load::$config['query_string']) ? '' : '?'. \load::$config['query_string']);
 
     // Explode segments
-    self::$segments = explode('/', $uri);
+    self::$segments = (empty($uri) ? [] : explode('/', $uri));
+    self::$segments = array_map('rawurldecode', self::$segments);
 
     // Get URL prefixes
     foreach(\load::$config['url_prefixes'] as &$item)
@@ -275,7 +278,7 @@ class router
 
 
 
-  public static function _load_controller($file, &$class, &$method)
+  public static function _load_controller($file, $class, &$method)
   {
     // Check for $File
     if (is_file($file))
