@@ -73,7 +73,7 @@ $config['url_prefixes'] = array();
 */
 
 $config['autoload_configs'] = array();
-$config['autoload_models'] = array('sessions_memcached');
+$config['autoload_models'] = array();
 $config['autoload_helpers'] = array('system');
 
 

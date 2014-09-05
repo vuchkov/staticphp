@@ -22,7 +22,7 @@
   
   <br />
   <p>
-    * It currently works only per session and will save items in memcached - not to be used for production :)<br />
+    * It currently works only per session - not to be used for production :)<br />
     * Demo limit: 400 items per session<br />
     * View source on the <a href="https://github.com/gintsmurans/staticphp/tree/example">GitHub</a>
   </p>

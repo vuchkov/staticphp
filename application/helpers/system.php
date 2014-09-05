@@ -11,29 +11,13 @@
 header('Content-type: text/html; charset=utf-8');
 
 
-
-/*
-|--------------------------------------------------------------------------
-| Memcached
-|--------------------------------------------------------------------------
-*/
-
-load::$config['memcached'] = new Memcached('main_site');  
-$check = load::$config['memcached']->getServerList();
-if (empty($check))
-{
-  load::$config['memcached']->addServer('localhost', 11211);
-}
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Sessions
 |--------------------------------------------------------------------------
 */
 
-new \models\sessions_memcached(load::$config['memcached']);
+session_start(); // php is already configured with redis sessions
 
 
 

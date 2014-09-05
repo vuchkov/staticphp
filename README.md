@@ -74,7 +74,7 @@ http://staticphp.gm.lv/
 
 Example project
 -------------------
-Simeple todo example application based on sessions and memcached. To view the source, checkout the "example" branch.
+Simeple todo example application based on sessions. To view the source, checkout the "example" branch.
 
 http://staticphp-example.gm.lv/
 
